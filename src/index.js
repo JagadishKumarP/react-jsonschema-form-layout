@@ -2,6 +2,7 @@ import React from 'react'
 import ObjectField from 'react-jsonschema-form/lib/components/fields/ObjectField'
 import { retrieveSchema } from 'react-jsonschema-form/lib/utils'
 import { Col } from 'react-bootstrap'
+import { Grid } from 'semantic-ui-react';
 
 export default class GridField extends ObjectField {
   state = { firstName: 'hasldf' }
@@ -24,7 +25,8 @@ export default class GridField extends ObjectField {
     const layout = uiSchema['ui:layout']
 
     return (
-      <fieldset>
+      <Grid>
+        <fieldset>
         {title ? <TitleField
             id={`${idSchema.$id}__title`}
             title={title}
@@ -48,21 +50,23 @@ export default class GridField extends ObjectField {
                     }
                     if (schema.properties[name]) {
                       return (
-                          <Col {...rowProps} key={index} style={style}>
-                            <SchemaField
-                               name={name}
-                               required={this.isRequired(name)}
-                               schema={schema.properties[name]}
-                               uiSchema={uiSchema[name]}
-                               errorSchema={errorSchema[name]}
-                               idSchema={idSchema[name]}
-                               formData={formData[name]}
-                               onChange={this.onPropertyChange(name)}
-                               onBlur={onBlur}
-                               registry={this.props.registry}
-                               disabled={disabled}
-                               readonly={readonly}/>
-                          </Col>
+                          <Grid.Column>
+                            <Col {...rowProps} key={index} style={style}>
+                              <SchemaField
+                                 name={name}
+                                 required={this.isRequired(name)}
+                                 schema={schema.properties[name]}
+                                 uiSchema={uiSchema[name]}
+                                 errorSchema={errorSchema[name]}
+                                 idSchema={idSchema[name]}
+                                 formData={formData[name]}
+                                 onChange={this.onPropertyChange(name)}
+                                 onBlur={onBlur}
+                                 registry={this.props.registry}
+                                 disabled={disabled}
+                                 readonly={readonly}/>
+                            </Col>
+                          </Grid.Column>
                       )
                     } else {
                       const { render, ...rowProps } = row[name]
@@ -91,6 +95,7 @@ export default class GridField extends ObjectField {
             )
           })
         }</fieldset>
+      </Grid>
     )
   }
 }
